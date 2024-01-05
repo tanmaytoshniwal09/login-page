@@ -12,4 +12,12 @@ Image logoWidget(String imageName, double imgWidth, double imgHeight,
 }
 
 TextField reusableTextfiled(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller) {}
+    TextEditingController controller) {
+  return TextField(
+    controller: controller,
+    obscureText: isPasswordType,
+    enableSuggestions: !isPasswordType,
+    autocorrect: !isPasswordType,
+    cursorColor: Colors.white,
+  );
+}
