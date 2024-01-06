@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_page/Screens/home_screen.dart';
 import 'package:login_page/Screens/signup_screen.dart';
 import 'package:login_page/Utils/colors_utils.dart';
 import 'package:login_page/reusable_widget/reusable_widget.dart';
@@ -11,7 +12,6 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  @override
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   Widget build(BuildContext context) {
@@ -49,7 +49,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                signInSignUpButton(context, true, () {}),
+                signInSignUpButton(context, true, () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                }),
                 signupOption(),
               ],
             ),
