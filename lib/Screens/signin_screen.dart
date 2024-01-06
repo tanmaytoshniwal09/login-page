@@ -32,9 +32,9 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Column(
               children: <Widget>[
                 logoWidget(
-                  "assets/images/password.png",
-                  200,
-                  200,
+                  "assets/images/ghost.png",
+                  150,
+                  150,
                 ),
                 SizedBox(
                   height: 30,
@@ -71,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 MaterialPageRoute(builder: (context) => SignUpScreen()));
           },
           child: const Text(
-            "Sign Up",
+            " Sign Up",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         )
