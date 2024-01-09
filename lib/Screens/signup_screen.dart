@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:login_page/Screens/home_screen.dart';
-import 'package:login_page/Screens/signin_screen.dart';
-import 'package:login_page/Utils/colors_utils.dart';
-import 'package:login_page/reusable_widget/reusable_widget.dart';
+import 'package:loginPage/Screens/home_screen.dart';
+import 'package:loginPage/Screens/signin_screen.dart';
+import 'package:loginPage/Utils/colors_utils.dart';
+import 'package:loginPage/reusable_widget/reusable_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -16,7 +18,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     TextEditingController _userNameTexController = TextEditingController();
     TextEditingController _emailTextController = TextEditingController();
-    TextEditingController _PasswordTexController = TextEditingController();
+    TextEditingController _passwordTexController = TextEditingController();
 
     return Scaffold(
       body: Container(
@@ -47,13 +49,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 20,
               ),
               reusableTextfiled("Enter Password", Icons.lock_outline, true,
-                  _PasswordTexController),
+                  _passwordTexController),
               const SizedBox(
                 height: 20,
               ),
               signInSignUpButton(context, false, () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                FirebaseAuth.instance
+                    .createUserWithEmailAndPassword(
+                        email: _emailTextController.text,
+                        password: _passwordTexController.text)
+                    .then((value) {
+                  print("Created New Account");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                }).onError((error, stackTrace) {
+                  print("Error ${error.toString()}");
+                });
               })
             ],
           ),

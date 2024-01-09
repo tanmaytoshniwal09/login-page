@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:login_page/Screens/home_screen.dart';
-import 'package:login_page/Screens/signup_screen.dart';
-import 'package:login_page/Utils/colors_utils.dart';
-import 'package:login_page/reusable_widget/reusable_widget.dart';
+import 'package:loginPage/Screens/home_screen.dart';
+import 'package:loginPage/Screens/signup_screen.dart';
+import 'package:loginPage/Utils/colors_utils.dart';
+import 'package:loginPage/reusable_widget/reusable_widget.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -50,8 +51,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 20,
                 ),
                 signInSignUpButton(context, true, () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                  FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: _emailTextController.text,
+                          password: _passwordTextController.text)
+                      .then((value) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                  }).onError((error, stackTrace) {
+                    print("Error ${error.toString()}");
+                  });
                 }),
                 signupOption(),
               ],
